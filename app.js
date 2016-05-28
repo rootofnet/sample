@@ -40,6 +40,42 @@ app.get('/sample/:xxx',function(req,res) {
 
 /********************************************************************************/
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://hocha9938:hocha9938@ds015953.mlab.com:15953/sample');
+var db = mongoose.connection;
+db.once('open', function() {
+  console.log('DB connected!');
+});
+db.on('error', function() {
+  console.log('DB ERROR : ', err);
+});
+
+// Collection : Table
+// Document : Row, Array
+
+var mySchema = mongoose.Schema({
+  name:String,
+  count:Number
+});
+ 
+var MyData = mongoose.model('myTable', mySchema);
+
+// 없으면 새로 만든다.
+MyData.findOne({name:'hocha9938'}, function(err, data) {
+  if(err) { return console.log('Data ERROR : ', err); }
+  if(!data) {
+    MyData.create({name:'hocha9938',count:2}, function(err, data) {
+      console.log("Table initialized : ", data);
+    });
+  }
+});
+
+
+
+/********************************************************************************/
+
+
+
 app.listen(3000,function() {
   console.log('Server On!');
 });

@@ -8,5 +8,14 @@
   <body>
     <h1>I'm EJS</h1>
     Count : <%= i_count %>
+
+    <ul>
+      <% v_data.forEach(function(e) { %>
+        <li>
+        <%= e._id %> <%= e.title %> <%= e.content %>
+        </li>
+      <% }) %>
+    </ul>
+
   </body>
 </html>

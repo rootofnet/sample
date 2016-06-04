@@ -18,7 +18,7 @@ var app = express();
 app.set('view engine', 'ejs'); // express는 디폴트 views 폴더안의 ejs를 등록한다.
 
 /********************************************************************************/
-
+ 
 // app.use 는 filter와 같은 역할을 한다.
 
 // index 지정
@@ -142,6 +142,14 @@ app.get('/sample/:xxx', function(req, res) {
     v_data.i_count = req.params.xxx;
     res.render('first_ejs', v_data);
     //res.redirect('/sample');
+});
+
+// http://localhost:3000/sample_json
+app.get('/sample_json', function(req, res) {
+    res.json([
+      {author: "Pete Hunt", text: "댓글입니다"},
+      {author: "Jordan Walke", text: "*또 다른* 댓글입니다"}
+    ]);
 });
 
 /********************************************************************************/

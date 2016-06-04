@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+
+
+      // tutorial2.js
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList"> 안녕! 난 댓글목록이야. </div>
+          );
+        }
+      });
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm"> 안녕! 난 댓글 폼이야. </div>
+          );
+        }
+      });
+
+      // tutorial1.js
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>댓글</h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+      React.render( <CommentBox />, document.getElementById('example') );
+
+
+    </script>
+  </body>
+</html>

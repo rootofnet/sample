@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+
+     var members = [{name:"keen",inChargeOf :"gag", generation:"old"},{name:"steve", inChargeOf : "study",generation:"old"},{name:"jump",inChargeOf :"zzal", generation:"young"},{name:"gray",inChargeOf :"security", generation:"young"}];
+
+     var DummySearch = React.createClass({
+       fn_change: function(e) {
+         this.props.fn_onSearch( this.refs.name.getDOMNode().value.trim() );
+       },
+       render: function() {
+         return(
+           <div>
+             <form>
+             찾기 : <input
+             type='text'
+             onChange={this.fn_change}
+             value={this.props.name}
+             ref='name' />
+             </form>
+           </div>
+         );
+       }
+     });
+
+     var DummyForm = React.createClass({
+         fn_click: function(e) {
+           e.preventDefault();
+           var name = this.refs.name.getDOMNode().value.trim();
+           var inChargeOf = this.refs.inChargeOf.getDOMNode().value.trim();
+           var generation = this.refs.generation.getDOMNode().value.trim();
+           //console.log(name,inChargeOf,generation);
+           this.props.members.push({name:name,inChargeOf:inChargeOf,generation:generation});
+           this.props.fn_formChanged(this.props.members);
+           this.refs.name.getDOMNode().value = '';
+           this.refs.inChargeOf.getDOMNode().value = '';
+           this.refs.generation.getDOMNode().value = '';
+         },
+         render: function() {
+           return (
+             <div>
+               <form onSubmit={this.fn_click}>
+                 <input type='text' ref='name' />
+                 <input type='text' ref='inChargeOf' />
+                 <input type='text' ref='generation' />
+                 <input type='submit' value='Post' />
+               </form>
+             </div>
+           );
+         }
+     });
+
+     var Dummy = React.createClass({
+       getInitialState: function() {
+         return {
+             members : this.props.members,
+             nameFilter: ''
+         };
+       },
+       fn_formChanged : function(members) {
+         //console.log(members);
+         this.setState({}); // DOM rendering
+       },
+       fn_onSearch: function(name) {
+         if(!name) { name = ""; }
+         this.setState({
+           nameFilter: name
+         });
+       },
+       render: function() {
+         var members=[];
+         if(this.state.members && this.state.members.length > 0){
+           this.state.members.forEach(function( member ) {
+             if ( member.name.indexOf(this.state.nameFilter) === -1 ) {
+                 return;
+             }
+             members.push(
+               <div>
+                <span> {member.name} </span>
+                <span> {member.inChargeOf} </span>
+                <span> {member.generation} </span>
+               </div>
+             );
+           }.bind(this));
+         }
+         return (
+           <div>
+             {members}
+             <DummyForm fn_formChanged={this.fn_formChanged} members={this.props.members}/>
+             /*
+              DummyForm 클래스의 props 변수에
+              fn_onFormChange 라는 변수 공간을 할당하고
+              Dummy의 fn_formChanged 함수를 콜백함수로 넘긴다.
+             */
+             <DummySearch fn_onSearch={this.fn_onSearch}/>
+           </div>
+         );
+       }
+     });
+
+// props
+// refs
+// state
+
+    React.render(<Dummy members={members} />, document.getElementById('example'));
+
+
+    </script>
+  </body>
+</html>

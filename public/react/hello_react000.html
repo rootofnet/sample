@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+
+      // tutorial3.js
+      var Comment = React.createClass({
+        render: function() {
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor"> {this.props.author} </h2>
+              {this.props.children}
+            </div>
+          );
+        }
+      });
+
+      // tutorial2.js
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList">
+              <Comment author="Pete Hunt">댓글입니다</Comment>
+              <Comment author="Jordan Walke">또 다른 댓글입니다</Comment>
+            </div>
+          );
+        }
+      });
+
+      // tutorial1.js
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>댓글</h1>
+              <CommentList />
+            </div>
+          );
+        }
+      });
+      React.render( <CommentBox />, document.getElementById('example') );
+
+
+    </script>
+  </body>
+</html>
